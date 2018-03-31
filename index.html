@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Timedonkey</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/push.js/bin/push.min.js"></script>
+    <style type="text/css">
+      h1 {
+        float:left;
+        margin-bottom:16px;
+        background-color:burlywood;
+        padding:16px;
+        border-radius:4px;
+        cursor:pointer;
+      }
+      .orange {
+        color:darkorange;
+      }
+      .red {
+        color:crimson;
+      }
+      .redAlert {
+        color:crimson;
+        animation: blink 1s infinite;
+	    }
+	    @keyframes blink{
+        0%  {opacity: 1;}
+        62% {opacity: 1;}
+        63% {opacity: 0;}
+        100%{opacity: 0;}
+      }
+      button#restart {
+        background-color:burlywood;
+        border-color:burlywood;
+        color:black;
+      }
+      button#restart:hover {
+        background-color:khaki;
+        border-color:khaki;
+        color:black;
+      }
+      button#restart:active {
+        background-color:black;
+        border-color:black;
+        color:white;        
+      }
+      input.time {
+        width:100px;
+        float:left;
+        margin-right:7px;
+      }
+
+    </style>
+  </head>
+  <body style="padding:16px;">
+    <h1>Timedonkey</h1>
+    <div style="float:right; text-align:right; font-weight:bold; margin:16px;">
+        <span class="timeRemaining"></span><br/>
+        <span class="timeEllapsed"></span>      
+    </div>
+    <div style="clear:both;"></div>
+    <div>
+        <input type="text" class="time form-control" placeholder="target time" title="target time" id="target" />
+        <input type="text" class="time form-control" placeholder="closing time" title="closing time" id="targetOrange" />
+        <input type="text" class="time form-control" placeholder="time to leave" title="time to leave" id="targetRed" />
+        <input type="text" class="time form-control" placeholder="leaving is overdue time" title="leaving is overdue time" id="targetRedAlert" />
+        <button class="btn btn-primary" id="restart">start</button>    
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
