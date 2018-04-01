@@ -31,17 +31,19 @@
         63% {opacity: 0;}
         100%{opacity: 0;}
       }
-      button#restart {
+      div#initialUI button {
         background-color:burlywood;
         border-color:burlywood;
         color:black;
+        float:left;
+        margin-right:7px;
       }
-      button#restart:hover {
+      div#initialUI button:hover {
         background-color:khaki;
         border-color:khaki;
         color:black;
       }
-      button#restart:active {
+      div#initialUI button:active {
         background-color:black;
         border-color:black;
         color:white;        
@@ -51,7 +53,9 @@
         float:left;
         margin-right:7px;
       }
-
+      .flag {
+        cursor:pointer;
+      }
     </style>
   </head>
   <body style="padding:16px;">
@@ -61,13 +65,26 @@
         <span class="timeEllapsed"></span>      
     </div>
     <div style="clear:both;"></div>
-    <div>
+
+    <table id="donkeyTable" class="table table-hover">
+      <tr class="th">
+        <th>Flag</th><!-- Ticket, Pause, Other, Unknown -->
+        <th>From</th>
+        <th>To</th>
+        <th>Total</th>
+        <th>Activity</th>
+      </tr>
+    </table>
+
+    <div id="initialUI">
+        <button class="btn btn-primary" id="download">download</button>
         <input type="text" class="time form-control" placeholder="target time" title="target time" id="target" />
         <input type="text" class="time form-control" placeholder="closing time" title="closing time" id="targetOrange" />
         <input type="text" class="time form-control" placeholder="time to leave" title="time to leave" id="targetRed" />
         <input type="text" class="time form-control" placeholder="leaving is overdue time" title="leaving is overdue time" id="targetRedAlert" />
-        <button class="btn btn-primary" id="restart">start</button>    
+        <button class="btn btn-primary" id="restart">restart</button>    
     </div>
+    <div style="clear:both;"></div>
 
     <script src="index.js"></script>
   </body>
