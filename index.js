@@ -161,8 +161,9 @@
         return milliseconds;
     }
 
-    let restart = function() {
+    let apply = function() {
         let pause = 0
+        let timeRemaining = 28800000;
 
         target = timestringToMilliseconds($('#target').val());
         targetOrange = timestringToMilliseconds($('#targetOrange').val());
@@ -185,9 +186,9 @@
             }
             pause = 0
             $('table#donkeyTable td.flag').each(function() {
-                if ($(this).text() === 'Pause') pause += parseFloat($('#donkeyTableTotal'+this.id.substr(15)).text()) * 3600000
+                if ($(this).text() === 'Pause') pause += Math.floor(parseFloat($('#donkeyTableTotal'+this.id.substr(15)).text()) * 3600000)
             });
-            let timeRemaining = target - (Date.now() - start) + Math.floor(pause);
+            timeRemaining = target - (Date.now() - start) + pause;
             if (timeRemaining > targetOrange) return $('span.timeRemaining').removeClass('orange red redAlert');
             if (timeRemaining > targetRed) return $('span.timeRemaining').removeClass('red redAlert').addClass('orange');
             if (timeRemaining > targetRedAlert) return $('span.timeRemaining').removeClass('orange redAlert').addClass('red');
@@ -196,7 +197,6 @@
 
         if (interval5min !== null) clearInterval(interval5min);
         interval5min = setInterval(function() {
-            let timeRemaining = target - (Date.now() - start);
             if (timeRemaining > targetOrange) return;
             if (timeRemaining > targetRed) return Push.create('Get ready to go... \n' + getTimestringFromMilliseconds(timeRemaining, false) + ' left');
             if (timeRemaining > targetRedAlert) return Push.create('Why are you still here?');
@@ -204,11 +204,11 @@
         }, 300000);
     }
 
-    $('#restart').on('click', function() {
-        restart();
+    $('#apply').on('click', function() {
+        apply();
     });
 
     loadDonkeyTable();
-    restart();
+    apply();
 
 })(jQuery)

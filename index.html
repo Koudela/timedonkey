@@ -31,19 +31,19 @@
         63% {opacity: 0;}
         100%{opacity: 0;}
       }
-      div#initialUI button {
+      div.UI button {
         background-color:burlywood;
         border-color:burlywood;
         color:black;
         float:left;
         margin-right:7px;
       }
-      div#initialUI button:hover {
+      div.UI button:hover {
         background-color:khaki;
         border-color:khaki;
         color:black;
       }
-      div#initialUI button:active {
+      div.UI button:active {
         background-color:black;
         border-color:black;
         color:white;        
@@ -76,14 +76,23 @@
       </tr>
     </table>
 
-    <div id="initialUI">
+    <div class="UI" id="initialUI">
         <button class="btn btn-primary" id="download">download</button>
         <input type="text" class="time form-control" placeholder="target time" title="target time" id="target" />
         <input type="text" class="time form-control" placeholder="closing time" title="closing time" id="targetOrange" />
         <input type="text" class="time form-control" placeholder="time to leave" title="time to leave" id="targetRed" />
         <input type="text" class="time form-control" placeholder="leaving is overdue time" title="leaving is overdue time" id="targetRedAlert" />
-        <button class="btn btn-primary" id="restart">restart</button>    
+        <button class="btn btn-primary" id="apply">apply</button>    
+        <button class="btn btn-primary" id="edit">edit</button>
     </div>
+
+    <div style="clear:both;"></div>
+
+    <div class="UI" id="editUI">
+        <textarea class="form-control" style="margin:16px 0"></textarea>
+        <button class="btn btn-primary" id="save" style="float:right">save</button>    
+    </div>
+
     <div style="clear:both;"></div>
 
     <script src="index.js"></script>
