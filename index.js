@@ -116,7 +116,7 @@
         rebuildDonkeyTable(table);
     }
 
-    $('h1').on('click', function() {
+    $('.addNext').on('click', function() {
         newTimestamp();
     });
 
