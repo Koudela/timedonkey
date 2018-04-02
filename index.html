@@ -56,6 +56,9 @@
       .flag {
         cursor:pointer;
       }
+      #editUI {
+        display:none;
+      }
     </style>
   </head>
   <body style="padding:16px;">
@@ -89,8 +92,8 @@
     <div style="clear:both;"></div>
 
     <div class="UI" id="editUI">
-        <textarea class="form-control" style="margin:16px 0"></textarea>
-        <button class="btn btn-primary" id="save" style="float:right">save</button>    
+        <textarea class="form-control" id="editTextarea" style="margin:16px 0"></textarea>
+        <button class="btn btn-primary" id="editSave" style="float:right">save</button>    
     </div>
 
     <div style="clear:both;"></div>

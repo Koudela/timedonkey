@@ -1,4 +1,4 @@
-(function($){//TODO: feature: download JSON + feature: edit JSON
+(function($){//TODO: feature: download JSON 
     'use strict';
 
     /**
@@ -210,5 +210,26 @@
 
     loadDonkeyTable();
     apply();
+
+    $('#edit').on('click', function() {
+        let editJSON = {[getDatestamp()] : timedonkeyJSON[getDatestamp()]}
+        $('#editTextarea').val(JSON.stringify(editJSON));
+        $('#editUI').show();
+    });
+
+    $('#editSave').on('click', function() {
+        try {
+            let editJSON = JSON.parse($('#editTextarea').val())
+            if (typeof editJSON[getDatestamp()] === 'undefined' || !Array.isArray(editJSON[getDatestamp()])) {
+                return console.log('Error: supplied JSON is invalid.')
+            }
+            timedonkeyJSON[getDatestamp()] = editJSON[getDatestamp()];
+            saveDonkeyTable();
+            rebuildDonkeyTable(timedonkeyJSON[getDatestamp()]);
+            $('#editUI').hide();
+        } catch(e) {
+            console.log('Error: supplied string can not be converted to JSON' + (e));
+        }
+    });
 
 })(jQuery)
