@@ -1,4 +1,4 @@
-(function($){//TODO: feature: download JSON 
+(function($){
     'use strict';
 
     /**
@@ -229,6 +229,21 @@
             $('#editUI').hide();
         } catch(e) {
             console.log('Error: supplied string can not be converted to JSON' + (e));
+        }
+    });
+
+    $('#download').on('click', function() {
+        let blob = new Blob([JSON.stringify(timedonkeyJSON)], { type: 'application/json' })
+        if (window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveBlob(blob, 'timedonkey.json')
+        }
+        else {
+            let elm = window.document.createElement('a')
+            elm.href = window.URL.createObjectURL(blob)
+            elm.download = 'timedonkey.json'       
+            document.body.appendChild(elm)
+            elm.click()
+            document.body.removeChild(elm)
         }
     });
 
