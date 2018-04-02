@@ -1,4 +1,4 @@
-(function($){//TODO: feature: decrement Pause + feature: download JSON
+(function($){//TODO: feature: download JSON + feature: edit JSON
     'use strict';
 
     /**
@@ -31,7 +31,8 @@
     }
 
     var getTimeRemaining = function() {
-        return getTimestringFromMilliseconds(target - (Date.now() - start), true);
+        if (!arguments[0]) return getTimestringFromMilliseconds(target - (Date.now() - start), true);
+        return getTimestringFromMilliseconds(target - (Date.now() - start) + arguments[0], true);
     }
     
     var getTimeEllapsed = function(start) {
@@ -125,10 +126,10 @@
         table.forEach(row => {
             $('table#donkeyTable').append(
                 '<tr class="td">'+
-                    '<td class="flag" id="donkeyTableFlag'+i+'"">'+row.flag+'</td>'+
+                    '<td class="flag" id="donkeyTableFlag'+i+'">'+row.flag+'</td>'+
                     '<td class="from">'+row.from+'</td>'+
                     '<td class="to">'+row.to+'</td>'+
-                    '<td class="total">'+(row.to !== null ? toProdTime(row.from, row.to) : '')+'</td>'+
+                    '<td class="total" id="donkeyTableTotal'+i+'">'+(row.to !== null ? toProdTime(row.from, row.to) : '')+'</td>'+
                     '<td class="activity"><input id="donkeyTableActivity'+(i++)+'" type="text" class="form-control" placeholder="describe or name here..." value="'+row.activity+'" /></td>'+
                 '</tr>'
             );
@@ -161,6 +162,8 @@
     }
 
     let restart = function() {
+        let pause = 0
+
         target = timestringToMilliseconds($('#target').val());
         targetOrange = timestringToMilliseconds($('#targetOrange').val());
         targetRed = timestringToMilliseconds($('#targetRed').val());
@@ -169,7 +172,7 @@
         if (interval7msec !== null) clearInterval(interval7msec);
         interval7msec = setInterval(function() {
             $('title').text(getTimestringFromMilliseconds(millisecToday(), false).substr(0, 5) + ' - Timedonkey');
-            $('span.timeRemaining').text(getTimeRemaining())
+            $('span.timeRemaining').text(getTimeRemaining(pause))
             $('span.timeEllapsed').text(getTimeEllapsed(start))
         }, 7)
     
@@ -180,7 +183,11 @@
                 $('table#donkeyTable td.to').last().text(getTimestamp());
                 $('table#donkeyTable td.total').last().text(toProdTime(table[table.length - 1].from, getTimestamp()));    
             }
-            let timeRemaining = target - (Date.now() - start);
+            pause = 0
+            $('table#donkeyTable td.flag').each(function() {
+                if ($(this).text() === 'Pause') pause += parseFloat($('#donkeyTableTotal'+this.id.substr(15)).text()) * 3600000
+            });
+            let timeRemaining = target - (Date.now() - start) + Math.floor(pause);
             if (timeRemaining > targetOrange) return $('span.timeRemaining').removeClass('orange red redAlert');
             if (timeRemaining > targetRed) return $('span.timeRemaining').removeClass('red redAlert').addClass('orange');
             if (timeRemaining > targetRedAlert) return $('span.timeRemaining').removeClass('orange redAlert').addClass('red');
