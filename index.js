@@ -1,4 +1,4 @@
-(function($){
+(function($){//TODO: feature: decrement Pause + feature: download JSON
     'use strict';
 
     /**
@@ -64,7 +64,6 @@
     nextFlag.T = 'Pause';
     nextFlag.P = 'Other';
     nextFlag.O = 'Unknown';
-
 
     let getDatestamp = function() {
         let Dat = new Date();
@@ -148,8 +147,6 @@
     
     }
 
-
-
     /**
      * Restart... 
      */
@@ -193,8 +190,8 @@
         if (interval5min !== null) clearInterval(interval5min);
         interval5min = setInterval(function() {
             let timeRemaining = target - (Date.now() - start);
-            if (timeRemaining > targetOrange) return Push.create(getTimestringFromMilliseconds(timeRemaining, false) + ' left');
-            if (timeRemaining > targetRed) return Push.create('Get ready to go...');
+            if (timeRemaining > targetOrange) return;
+            if (timeRemaining > targetRed) return Push.create('Get ready to go... \n' + getTimestringFromMilliseconds(timeRemaining, false) + ' left');
             if (timeRemaining > targetRedAlert) return Push.create('Why are you still here?');
             return Push.create('End of work is overdue... \nNerdy bastard, move now!');
         }, 300000);
